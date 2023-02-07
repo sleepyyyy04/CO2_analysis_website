@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script>
+        function search_button() {
+
+            {#alert("test")#}
+        }
+
+        function upload_res() {
+            alert("test")
+        }
+    </script>
+</head>
+<body class="background-grey">
+    <!--navigate-->
+    <nav class="ui inverted attached segment pad-nav shadow-nav">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui green header item">Carbon Intensity Analysis</h2>
+                <a href="home" class="item"><i class="home icon"></i>Home</a>
+                <a href="search" class="active item"><i class="search link icon"></i>Search</a>
+                <a href="analysis" class="item"><i class="chart line icon"></i>Analysis</a>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <br>
+
+    <div class="ui container">
+        <form action="#" method="post" class="ui segment form">
+            <h3 class="ui dividing header">Search Carbon Intensity Data</h3>
+            <div class="inline four fields">
+                <div class="field">
+                    <h4 align="center">Start Time: </h4>
+                </div>
+                <div class="field">
+                    <input type="datetime-local" name="from"
+                           value="2020-01-01T00:00" min="2020-01-01T00:00" max="2021-01-31T23:30">
+                </div>
+                <div class="field">
+                    <h4 align="center">End Time: </h4>
+                </div>
+                <div class="field">
+                    <input type="datetime-local" name="to"
+                           value="2020-01-01T00:30" min="2020-01-01T00:30" max="2021-02-01T00:00">
+                </div>
+            </div>
+            <div class="field">
+                <h4 class="ui dividing header"></h4>
+            </div>
+            <div class="field">
+                <h4>Predicted Value:</h4>
+            </div>
+            <div class="inline fields">
+                <div class="field">
+                    <h4>Exact Search:</h4>
+                </div>
+                <div class="field">
+                    <input type="text" name="exact-predict" placeholder="Exact Predicted Value">
+                </div>
+                <div class="field">
+                    <h4>Range Search:</h4>
+                </div>
+                <div class="field">
+                    <input type="text" name="begin-predict" placeholder="Beginning">
+                </div>
+                <div class="field">
+                    <input type="text" name="finish-predict" placeholder="End">
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="predictchoice" value="1" checked="checked">
+                        <label>Exact Search</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" value="0" name="predictchoice">
+                        <label>Range Search</label>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <h4 class="ui dividing header"></h4>
+            </div>
+            <div class="field">
+                <h4>Actual Value:</h4>
+            </div>
+            <div class="inline fields">
+                <div class="field">
+                    <h4>Exact Search:</h4>
+                </div>
+                <div class="field">
+                    <input type="text" name="exact-actual" placeholder="Exact Actual Value">
+                </div>
+                <div class="field">
+                    <h4>Range Search:</h4>
+                </div>
+                <div class="field">
+                    <input type="text" name="begin-actual" placeholder="Beginning">
+                </div>
+                <div class="field">
+                    <input type="text" name="finish-actal" placeholder="End">
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="actualchoice" value="1" checked="checked">
+                        <label>Exact Search</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" value="0" name="actualchoice">
+                        <label>Range Search</label>
+                    </div>
+                </div>
+            </div>
+            <div class="inline fields">
+                <div class="field">
+                    <h4>Data Index : </h4>
+                </div>
+                <div class="field">
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="index">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Index</div>
+                        <div class="menu">
+                            <div class="item" data-value="0">very low</div>
+                            <div class="item" data-value="1">low</div>
+                            <div class="item" data-value="2">moderate</div>
+                            <div class="item" data-value="3">high</div>
+                            <div class="item" data-value="4">very high</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <h4 class="ui dividing header"></h4>
+            </div>
+            <div class="inline fields">
+                <div class="field">
+                            <h4 align="right">Upload Results into Database:</h4>
+                        </div>
+                <div class="field">
+                            <input type="text" name="upload" placeholder="Collection Name">
+                        </div>
+                <div class="field">
+                            <button class="ui green button" ><i class="search icon"></i>Search & <i class="download icon"></i>Upload</button>
+                        </div>
+            </div>
+        </form>
+        <br>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Predicted Value</th>
+                <th>Actual Value</th>
+                <th>Index</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for r in result %}
+            <tr>
+                <td>{{ r['from_time'] }}</td>
+                <td>{{ r['to_time'] }}</td>
+                <td>{{ r['forecast'] }}</td>
+                <td>{{ r['actual'] }}</td>
+                <td>{{ r['index'] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+{#            <tr>#}
+{#                <th colspan="10">#}
+{#                    <div class="ui pagination mini menu">#}
+{#                        <a class="item">Previous Page</a>#}
+{#                        <a class="item">Next Page</a>#}
+{#                    </div>#}
+{#                </th>#}
+{#            </tr>#}
+            </tfoot>
+        </table>
+    </div>
+
+
+    <br>
+    <br>
+
+    <!--footer-->
+    <footer class="ui inverted vertical segment pad-footer">
+        <div class="ui center aligned container">
+            <h2 class="ui green header item">Carbon Intensity Analysis</h2>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">DSCI 551 project</p>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">© Created by Dengjia Zhang in spring 2021.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script>
+        $('.ui.dropdown').dropdown();
+    </script>
+
+
+
+</body>
+</html>

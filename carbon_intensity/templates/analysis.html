@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/echarts.js"></script>
+    <script>
+        function analyzedata() {
+            var second = document.getElementById("second")
+            var chart2 = echarts.init(second)
+            var option={
+                color:['#c701ff','#7fffd4','#ff3366','#6633cc','#FFFF00'],
+                legend:{
+                    data:['very low','low','moderate','high','very high']
+                },
+                tooltip:{
+                    trigger:"axis",
+                    axisPointer: {
+                                type: 'shadow'
+                            }
+                },
+                xAxis:{
+                    name: 'Month',
+                    data: {{ x|safe }}
+                },
+                yAxis:{
+                    name: 'Amount',
+                },
+                dataZoom:[
+                    {start:0,end:1500}
+                ],
+                series: [
+                    {
+                        name:"very low",
+                        type: "bar",
+                        data:{{ y[0]|safe }}
+                    },
+                    {
+                        name:"low",
+                        type: "bar",
+                        data:{{ y[1]|safe }}
+                    },
+                    {
+                        name:"moderate",
+                        type: "bar",
+                        data:{{ y[2]|safe }}
+                    },
+                    {
+                        name:"high",
+                        type: "bar",
+                        data:{{ y[3]|safe }}
+                    },
+                    {
+                        name:"very high",
+                        type: "bar",
+                        data:{{ y[4]|safe }}
+                    }
+                ]
+            }
+            chart2.setOption(option)
+            var first = document.getElementById("first")
+            var chart1 = echarts.init(first)
+            var option1={
+                color:['#c701ff','#00FF00'],
+                tooltip:{
+                    trigger:"axis"
+                },
+                legend:{
+                    data:['predict','actual']
+                },
+                xAxis:{
+                    type:'category',
+                    boundaryGap:false,
+                    name: 'Time',
+                    data:{{ t|safe }}
+                },
+                yAxis:{
+                    name: 'Value',
+                    type:"value"
+                },
+                dataZoom:[
+                    {start:0,end:1500}
+                ],
+                series: [
+                    {
+                        name:"predict",
+                        type: "line",
+                        data:{{ i|safe }}
+                    },
+                    {
+                        name:"actual",
+                        type: "line",
+                        data:{{ j|safe }}
+                    }
+                ]
+            }
+            chart1.setOption(option1)
+        }
+    </script>
+</head>
+<body class="background-grey">
+    <!--navigate-->
+    <nav class="ui inverted attached segment pad-nav shadow-nav">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui green header item">Carbon Intensity Analysis</h2>
+                <a href="home" class="item"><i class="home icon"></i>Home</a>
+                <a href="search" class="item"><i class="search link icon"></i>Search</a>
+                <a href="analysis" class="active item"><i class="chart line icon"></i>Analysis</a>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="ui container">
+        <button class="ui green button" onclick="analyzedata()"><i class="chart line icon"></i>Analyze</button>
+
+    </div>
+    <br>
+    <br>
+    <h3 align="center">Comparison Line Chart of Carbon Intensity Value</h3>
+    <div class="ui container" id="first" style="width: 800px; height: 500px; border: 1px solid green"></div>
+     <br>
+    <br>
+    <h3 align="center">Statistical Histogram Carbon Intensity Index</h3>
+    <div class="ui container" id="second" style="width: 800px; height: 500px; border: 1px solid green"></div>
+
+
+
+    <br>
+    <br>
+
+
+
+    <!--footer-->
+    <footer class="ui inverted vertical segment pad-footer">
+        <div class="ui center aligned container">
+            <h2 class="ui green header item">Carbon Intensity Analysis</h2>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">DSCI 551 project</p>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">© Created by Dengjia Zhang in spring 2021.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script>
+        $('.ui.dropdown').dropdown();
+    </script>
+
+
+</body>
+</html>

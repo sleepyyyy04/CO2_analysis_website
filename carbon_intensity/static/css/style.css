@@ -1,0 +1,35 @@
+.background-grey{
+    background: url(/static/images/backgd.png);
+}
+
+.pad-nav {
+    padding-top: 0.4em !important;
+    padding-bottom: 0.5em !important;
+}
+
+.shadow-nav {
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.pad-around{
+    padding-right: 2em !important;
+    padding-left: 2em !important;
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+
+}
+
+.text-bkgcolor{
+    background-color:#F0FFF0;
+}
+
+h1 {
+    font-size: 38px !important;
+}
+
+.pad-footer {
+    padding-top: 2.5em !important;
+    padding-bottom: 2em !important;
+}
+
